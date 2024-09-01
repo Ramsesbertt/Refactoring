@@ -1,0 +1,17 @@
+{
+    "name": "user/refactoringphp",
+    "description": "Curso de refactorizacion",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Ramsesbertt",
+            "email": "202100364c@utea.edu.pe"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    }
+}
