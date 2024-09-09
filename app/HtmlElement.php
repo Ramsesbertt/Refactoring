@@ -38,19 +38,13 @@ class HtmlElement {
     }
 
     public function open(): string{
-        if (! empty($this->attributes)){
-            
-            $result = '<'.$this->name.$this->attributes().'>';
-        } else {
-            $result = '<'.$this->name.'>';
-        }
 
-        return $result;
+            return '<'.$this->name.$this->attributes().'>';
+
     }
 
-
     public function attributes(): string{
-
+        
         $htmlAttributes = '';
 
         foreach ($this->attributes as $attribute => $value){
@@ -61,14 +55,19 @@ class HtmlElement {
         return $htmlAttributes;
     }
 
-    protected function renderAttribute($attribute, $value){
-        if (is_numeric($attribute)){
-            $htmlAttributes = ' '.$value;
-        } else {
-            $htmlAttributes = ' '.$attribute.'="'.htmlentities($value, ENT_QUOTES, 'UTF-8').'"'; //name="value"
-        }
+    public function hasAttributes(): bool{
 
-        return $htmlAttributes;
+        return ! empty($this->attributes);
+
+    }
+
+    protected function renderAttribute($attribute, $value){
+
+        if (is_numeric($attribute)){
+            return ' '.$value;
+        } 
+
+        return ' '.$attribute.'="'.htmlentities($value, ENT_QUOTES, 'UTF-8').'"'; //name="value"
     }
 
 
