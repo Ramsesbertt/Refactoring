@@ -16,7 +16,7 @@ class HtmlElement {
     {
 
         $this->name = $name;
-        $this->attributes = $attributes;
+        $this->attributes = new HtmlAttributes($attributes);
         $this->content = $content;
 
 
@@ -24,17 +24,14 @@ class HtmlElement {
 
     public function render (){
 
-        $result = $this->open();
-
         if ($this->isVoid()){
-            return $result;
+
+            return $this->open();
+
         }
 
-        $result .= $this->content();
+            return $this->open().$this->content().$this->close();
 
-        $result .= $this->close();
-
-        return $result;
     }
 
     public function open(): string{
@@ -44,30 +41,9 @@ class HtmlElement {
     }
 
     public function attributes(): string{
+
+        return $this->attributes->render();
         
-        $htmlAttributes = '';
-
-        foreach ($this->attributes as $attribute => $value){
-            $htmlAttributes .= $this->renderAttribute($attribute, $value);
-        }
-
-
-        return $htmlAttributes;
-    }
-
-    public function hasAttributes(): bool{
-
-        return ! empty($this->attributes);
-
-    }
-
-    protected function renderAttribute($attribute, $value){
-
-        if (is_numeric($attribute)){
-            return ' '.$value;
-        } 
-
-        return ' '.$attribute.'="'.htmlentities($value, ENT_QUOTES, 'UTF-8').'"'; //name="value"
     }
 
 
